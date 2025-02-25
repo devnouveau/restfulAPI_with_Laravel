@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// TODO : 추후 사용하지 않는 메서드 컨트롤러에서 일괄 제거
 /**
  * Buyers
  */
