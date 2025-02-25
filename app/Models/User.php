@@ -4,13 +4,16 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
+
+
 
     const VERIFIED_USER = '1';
     const UNVERIFIED_USER = '0';
@@ -19,6 +22,7 @@ class User extends Authenticatable
     const REGULAR_USER = 'false';
 
     protected $table = 'users';
+    protected $dates = ['deleted_at'];
 
     /**
      * The attributes that are mass assignable.
@@ -70,7 +74,7 @@ class User extends Authenticatable
 
     public function isVerified(): bool
     {
-        return $this->verified == User::VERIFIED_USER;
+        return $this->verified == User::VERIFIED_USER; // TODO : 추후 ==연산자 일괄 ===로 변경
     }
 
     public function isAdmin(): bool

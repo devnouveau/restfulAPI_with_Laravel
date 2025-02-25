@@ -14,7 +14,7 @@ class CategoryProductTable extends Migration
     public function up()
     {
         Schema::create('category_product', function (Blueprint $table) {
-            // id, timestamps는 pivot table에서 필요하지 않음
+            // id, timestamps는 pivot table에서 필요하지 않음. softdelete도 이력보관 목적이 아니면 필요하지 않음
 //            $table->id();
 //            $table->timestamps();
 
