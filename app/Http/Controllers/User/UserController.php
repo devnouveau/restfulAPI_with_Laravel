@@ -84,7 +84,7 @@ class UserController extends ApiController
 
         $request->validate($rules);
 
-        if ($request->has('name')) {
+        if ($request->has('name') && $user->name != $request->name) {
             $user->name = $request->name;
         }
 
