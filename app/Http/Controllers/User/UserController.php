@@ -102,7 +102,7 @@ class UserController extends ApiController
             $user->admin = $request->admin;
         }
 
-        if (!$user->isDirty()) {
+        if ($user->isClean()) {
             return $this->errorResponse('You need to specify a different value to update', 422);
 
         }
@@ -124,4 +124,5 @@ class UserController extends ApiController
 
         return $this->showOne($user); // TODO : 삭제된 유저 반환되지 않도록?
     }
+
 }
