@@ -28,8 +28,8 @@ class ProductFactory extends Factory
             'quantity' => $this->faker->numberBetween(1, 10),
             'status' => $this->faker->randomElement([Product::AVAILABLE_PRODUCT, Product::UNAVAILABLE_PRODUCT]),
             'image' => $this->faker->randomElement(['1.jpg', '2.jpg', '3.jpg']),
-//            'seller_id' => User::all()->random()->id,
-            'seller_id' => User::factory(),
+            'seller_id' => User::all()->random()->id,
+//            'seller_id' => User::factory(),
             // User::inRandomOrder()->first()->id
         ];
     }

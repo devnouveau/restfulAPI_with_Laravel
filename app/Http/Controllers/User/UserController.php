@@ -10,7 +10,7 @@ use Illuminate\Validation\Rule;
 class UserController extends ApiController
 {
     // TODO : (프로젝트 전체) request class, service class 로직 분리
-    // TODO : (프로젝트 전체) validation rule 보강
+    // TODO : (프로젝트 전체) validation rule 보강 (최대길이, 타입 string, nullable, 필드존재시 빈값 허용앉는 filled 등)
     // TODO : (프로젝트 전체) error msg 언어파일로 분리
     /**
      * Display a listing of the resource.
