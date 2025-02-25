@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
-class UserController extends Controller
+class UserController extends ApiController
 {
     // TODO : (프로젝트 전체) request class, service class 로직 분리
     // TODO : (프로젝트 전체) validation rule 보강
@@ -21,7 +21,7 @@ class UserController extends Controller
     {
         $users = User::all();
 
-        return response()->json(['data' => $users], 200);
+        return $this->showAll($users);
     }
 
     /**
@@ -48,7 +48,7 @@ class UserController extends Controller
 
         $user = User::create($data);
 
-        return response()->json(['data' => $user], 201);
+        return $this->showOne($user, 201);
     }
 
     /**
@@ -61,7 +61,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        return response()->json(['data' => $user], 200);
+        return $this->showOne($user);
     }
 
     /**
@@ -100,19 +100,20 @@ class UserController extends Controller
 
         if ($request->has('admin')) {
             if (!$user->isVerified()) {
-                return response()->json(['error' => 'Only verified users can modify the admin field','code' => 409], 409);
+                return $this->errorResponse('Only verified users can modify the admin field', 409);
             }
 
             $user->admin = $request->admin;
         }
 
         if (!$user->isDirty()) {
-            return response()->json(['error' => 'You need to specify a different value to update', 'code' => 422], 422);
+            return $this->errorResponse('You need to specify a different value to update', 422);
+
         }
 
         $user->save();
 
-        return response()->json(['data' => $user], 200);
+        return $this->showOne($user);
     }
 
     /**
@@ -127,6 +128,6 @@ class UserController extends Controller
 
         $user->delete();
 
-        return response()->json(['data' => $user], 200);
+        return $this->showOne($user); // TODO : 삭제된 유저 반환되지 않도록?
     }
 }
