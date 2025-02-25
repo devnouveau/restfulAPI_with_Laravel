@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,6 +27,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+//        Schema::defaultStringLength(191); // 5.6이하의 MySQL과 utf8mb4 인코딩을 사용할 때 발생하는 문제를 해결
     }
 }
