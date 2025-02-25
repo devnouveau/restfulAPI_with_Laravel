@@ -10,14 +10,15 @@ use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
-//    use HasFactory, Notifiable;
-    use Notifiable;
+    use HasFactory, Notifiable;
 
     const VERIFIED_USER = '1';
     const UNVERIFIED_USER = '0';
 
     const ADMIN_USER = 'true';
     const REGULAR_USER = 'false';
+
+    protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.
@@ -49,7 +50,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+//        'email_verified_at' => 'datetime',
     ];
 
     public function isVerified(): bool
