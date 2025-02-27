@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Product;
+use App\Observers\ProductObserver;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -27,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-//        Schema::defaultStringLength(191); // 5.6이하의 MySQL과 utf8mb4 인코딩을 사용할 때 발생하는 문제를 해결
+//        Schema::defaultStringLength(191); // 5.6이하의 MySQL과 utf8mb4 인코딩을 사용할 때 발생하는 문제를 해결 -> mysql8을 사용하게 되어 필요하지 않음
+
+        Product::observe(ProductObserver::class);
     }
 }
