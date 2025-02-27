@@ -18,10 +18,11 @@
     $ ./vendor/bin/sail up
     ```
    => 이 때부터 웹 서버(내장서버) 실행되어 0.0.0.0:80으로 접근가능
-4. db 스키마 적용
+4. db 스키마 적용 및 시딩
     ```
-    $ sail bash
+    $ ./vendor/bin/sail bash
     /var/www/html# php artisan migrate
+    /var/www/html# php artisan db:seed
     ```
 5. (디버깅툴 telescope 사용하는 경우) telescope assets 퍼블리시
     ```
