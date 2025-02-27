@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
         Transaction::truncate();
         DB::table('category_product')->truncate();
 
+        // seeding 할 때는 observer, event listener 로직(ex.사용자생성시 mail발송)이 실행되지 않도록 함
         User::flushEventListeners();
         Category::flushEventListeners();
         Product::flushEventListeners();

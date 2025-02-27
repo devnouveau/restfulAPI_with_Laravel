@@ -69,3 +69,6 @@ Route::resource('transactions', TransactionController::class, ['only' => ['index
  * Users
  */
 Route::resource('users', UserController::class, ['except' => ['create', 'edit']]); // 사용자 목록조회, 단건조회, 등록, 수정, 삭제
+Route::name('verify')->get('users/verify/{token}', [UserController::class, 'verify']); // 토큰을 이용해 사용자를 인증된 상태로 변경 (사용자 생성, 이메일 변경시 토큰이 인증주소에 포함되어 사용자의 메일로 발송됨)
+Route::name('resend')->get('users/{user}/resend', [UserController::class, 'resend']); // 인증메일 재발송
+
