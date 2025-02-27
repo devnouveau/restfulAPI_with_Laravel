@@ -69,7 +69,7 @@ class UserController extends ApiController
      * @param  User $user
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, $user)
+    public function update(Request $request, User $user)
     {
         $rules = [
             'name' => 'max:255',
@@ -124,5 +124,4 @@ class UserController extends ApiController
 
         return $this->showOne($user); // TODO : 삭제된 유저 반환되지 않도록?
     }
-
 }
