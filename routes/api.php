@@ -40,7 +40,7 @@ Route::resource('buyers.transactions', BuyerTransactionController::class, ['only
 /**
  * Categories
  */
-Route::resource('categories', CategoryController::class, ['except' => ['create', 'edit']]); // 상품의 카테고리 목록조회, 단건조회, 생성, 수정, 삭제
+Route::resource('categories', CategoryController::class, ['only' => ['index', 'show', 'store', 'update', 'destroy']]); // 상품의 카테고리 목록조회, 단건조회, 생성, 수정, 삭제
 Route::resource('categories.products', CategoryProductController::class, ['only' => ['index']]); // 특정 카테고리에 속하는 상품 목록 조회
 
 /**
@@ -57,7 +57,7 @@ Route::resource('products.buyers.transactions', ProductBuyerTransactionControlle
  */
 Route::resource('sellers', SellerController::class, ['only' => ['index', 'show']]); // 판매자 목록조회, 단건조회
 Route::resource('sellers.buyers', SellerBuyerController::class, ['only' => ['index']]); // 특정 판매자와 거래한 구매자 목록
-Route::resource('sellers.products', SellerProductController::class, ['except' => ['create', 'show', 'edit']]); // 특정 판매자가 가진 상품 목록조회, 등록, 수정, 삭제
+Route::resource('sellers.products', SellerProductController::class, ['only' => ['index', 'store', 'update', 'destroy']]); // 특정 판매자가 가진 상품 목록조회, 등록, 수정, 삭제
 Route::resource('sellers.transactions', SellerTransactionController::class, ['only' => ['index']]); // 특정 판매자의 거래 목록
 
 /**
@@ -68,7 +68,7 @@ Route::resource('transactions', TransactionController::class, ['only' => ['index
 /**
  * Users
  */
-Route::resource('users', UserController::class, ['except' => ['create', 'edit']]); // 사용자 목록조회, 단건조회, 등록, 수정, 삭제
+Route::resource('users', UserController::class,['only' => ['index', 'show', 'store', 'update', 'destroy']]); // 사용자 목록조회, 단건조회, 등록, 수정, 삭제
 Route::name('verify')->get('users/verify/{token}', [UserController::class, 'verify']); // 토큰을 이용해 사용자를 인증된 상태로 변경 (사용자 생성, 이메일 변경시 토큰이 인증주소에 포함되어 사용자의 메일로 발송됨)
 Route::name('resend')->get('users/{user}/resend', [UserController::class, 'resend']); // 인증메일 재발송
 
