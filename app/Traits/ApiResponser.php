@@ -26,6 +26,7 @@ trait ApiResponser
 
         $transformer = $collection->first()->transformer;
 
+        $collection = $this->filterData($collection, $transformer);
         $collection = $this->sortData($collection, $transformer);
         $collection = $this->transformData($collection, $transformer);
 
@@ -44,6 +45,23 @@ trait ApiResponser
     protected function showMessage($message, $code = 200)
     {
         return $this->successResponse(['data' => $message], $code);
+    }
+
+    protected function filterData(Collection $collection, $transformer)
+    {
+        foreach (request()?->query() as $query => $value) {
+            $attribute = $transformer::originalAttribute($query);
+
+            if (isset($attribute, $value)) {
+//                return $collection->where($attribute, $value);
+                return $collection->filter(function ($item) use ($attribute, $value) {
+                    return Str::contains($item[$attribute], $value);
+                });
+                // TODO : db 필터링으로 변경 (대량 데이터일 경우 db에서 필터링하는 것이 성능상 유리) 및 검색기준 추가 / 검색엔진 or caching 구현
+            }
+        }
+
+        return $collection;
     }
 
     protected function sortData(Collection $collection, $transformer)
