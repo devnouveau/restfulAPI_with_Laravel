@@ -12,6 +12,7 @@ use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -48,6 +49,12 @@ class Handler extends ExceptionHandler
 
     public function render($request, \Exception|\Throwable $exception)
     {
+        if ($exception instanceof TooManyRequestsHttpException) {
+            $retryAfter = $exception->getHeaders()['Retry-After'] ?? 60;
+
+            return $this->errorResponse('Too many requests, please try again later.', 429)->header('Retry-After', $retryAfter);
+        }
+
         if ($exception instanceof ValidationException) {
             return $this->convertValidationExceptionToResponse($exception, $request);
         }
