@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\ApiController;
 use App\Mail\UserCreated;
 use App\Models\User;
+use App\Transformers\UserTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
@@ -14,6 +15,14 @@ class UserController extends ApiController
     // TODO : (프로젝트 전체) request class, service class 로직 분리
     // TODO : (프로젝트 전체) validation rule 보강 (최대길이, 타입 string, nullable, 필드존재시 빈값 허용앉는 filled 등)
     // TODO : (프로젝트 전체) error msg 언어파일로 분리
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->middleware('transform.input:' . UserTransformer::class)->only(['store', 'update']);
+    }
+
     /**
      * Display a listing of the resource.
      *
