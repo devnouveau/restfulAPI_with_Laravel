@@ -72,3 +72,4 @@ Route::resource('users', UserController::class,['only' => ['index', 'show', 'sto
 Route::name('verify')->get('users/verify/{token}', [UserController::class, 'verify']); // 토큰을 이용해 사용자를 인증된 상태로 변경 (사용자 생성, 이메일 변경시 토큰이 인증주소에 포함되어 사용자의 메일로 발송됨)
 Route::name('resend')->get('users/{user}/resend', [UserController::class, 'resend']); // 인증메일 재발송
 
+Route::post('oauth/token', [\Laravel\Passport\Http\Controllers\AccessTokenController::class, 'issueToken']); // api 미들웨어 적용을 위해, 기본으로 생성된 oauth route를 api route에 등록함.
