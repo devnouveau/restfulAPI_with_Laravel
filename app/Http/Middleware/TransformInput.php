@@ -22,7 +22,7 @@ class TransformInput
         $transformedInput = [];
 
         foreach ($request->all() as $input => $value) {
-            $transformedInput[$transformer::originalAttribute($input)] = $value;
+            $transformedInput[$transformer::originalAttribute($input) ?? $input] = $value;
         }
 
         $request->replace($transformedInput);
@@ -41,7 +41,7 @@ class TransformInput
             foreach ($data->error as $field => $error) {
                 $transformedField = $transformer::transformedAttribute($field);
 
-                $transformedErrors[$transformedField] = str_replace($field, $transformedField, $error);
+                $transformedErrors[$transformedField ?? $field] = str_replace($field, $transformedField ?? $field, $error);
             }
 
             $data->error = $transformedErrors;
