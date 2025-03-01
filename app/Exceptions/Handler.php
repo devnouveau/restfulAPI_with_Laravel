@@ -125,7 +125,7 @@ class Handler extends ExceptionHandler
     {
         $errors = $e->validator->errors()->getMessages();
 
-        return $this->errorResponse($errors, 422); //TODO : ValidationException이 json 응답이 아닌 경우에는?
+        return $this->errorResponse($errors, 422);
     }
 
 }
