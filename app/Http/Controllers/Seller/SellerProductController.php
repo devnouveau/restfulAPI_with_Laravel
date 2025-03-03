@@ -58,7 +58,7 @@ class SellerProductController extends ApiController
             'image' => 'image',
         ];
 
-        $this->validate($request, $rules);
+        $request->validate($rules);
 
         $data = $request->all();
 
@@ -90,14 +90,14 @@ class SellerProductController extends ApiController
             'image' => 'image',
         ];
 
-        $this->validate($request, $rules);
+        $request->validate($rules);
 
         $this->checkSeller($seller, $product);
 
         $product->fill($request->only([
             'name',
             'description',
-            'quantity',
+            'quantity'
         ]));
 
         if ($request->has('status')) {
